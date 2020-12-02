@@ -1,0 +1,68 @@
+//
+// Created by robin on 23.11.20.
+//
+
+#include <stdio.h>
+
+#include "promodularSOEM.h"
+
+ecx_contextt *busMemberScan(char ioMap[]){
+    printf("Scannig bus topology...\n");
+
+    /* configure all slaves */
+    if(ec_config(FALSE,ioMap) < 1){
+        printf("No slaves found\n");
+        /*exit here*/
+    }
+    printf("All slaves configured\n");
+
+    /* Configure distributed clocks*/
+    ec_configdc();
+
+    /* wait for all slaves to reach SAFE_OP state*/ /*Frage: Wann geht der Master(slave 0) in EC_STATE_SAFE_OP*/
+    ec_statecheck(0,EC_STATE_SAFE_OP,  EC_TIMEOUTSTATE * 3);
+    /* SAFE_OP state not reached*/
+    if(ec_slave[0].state != EC_STATE_SAFE_OP){
+        printf("Not all slaves reached safe oprational state\n");
+        ec_readstate();
+        for(int i = 1; i <=ec_slavecount; i++){
+            if(ec_slave[i].state != EC_STATE_SAFE_OP){
+                printf("Slave %d State=%2x StatusCode=%4x : %s\n",i, ec_slave[i].state,ec_slave[i].ALstatuscode,
+                       ec_ALstatuscode2string(ec_slave[i].ALstatuscode));
+            }
+        }
+    }
+
+    ec_readstate();
+    printf("Finished reading out network configuration\n");
+    return &ecx_context;
+}
+
+int visualizeTopology(ecx_contextt *ec_context){
+
+    FILE * fp;
+
+    fp = fopen("../../vizFiles/graphViz.gv","w");
+
+    fprintf(fp, "digraph G {\n\n");
+
+    fprintf(fp, "node_0 [label=\"Master\"]\n");
+
+    for(int i = 1; i <= *(ec_context->slavecount); i++){
+        printf("Slave %d\n",i);
+        printf( "Vendor ID: %x\n",(int)ec_context->slavelist[i].eep_man);
+        printf("Product Code: %d\n",(int)ec_context->slavelist[i].eep_id);
+        printf("Revision No: %d\n", (int)ec_context->slavelist[i].eep_rev);
+        printf("Serial No still to be implemented\n");
+        printf("Configured Aderess still to be implemented\n");
+
+        fprintf(fp,"node_%d [label=\"%s\\nID: %d\"];\n",i,ec_context->slavelist[i].name,ec_context->slavelist[i].eep_id);
+        fprintf(fp, "node_%d -> node_%d;\n",i-1,i);
+
+    }
+    fprintf(fp, "}\n");
+
+    fclose(fp);
+    return 0;
+}
+

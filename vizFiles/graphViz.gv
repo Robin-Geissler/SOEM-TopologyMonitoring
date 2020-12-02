@@ -1,0 +1,8 @@
+digraph G {
+
+node_0 [label="Master"]
+node_1 [label="XMC_ESC\nID: 1"];
+node_0 -> node_1;
+node_2 [label="XMC_ESC\nID: 1"];
+node_1 -> node_2;
+}

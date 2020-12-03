@@ -368,7 +368,14 @@ int ecx_config_init(ecx_contextt *context, uint8 usetable)
       {
          eedat = ecx_readeeprom2(context, slave, EC_TIMEOUTEEP); /* revision */
          context->slavelist[slave].eep_rev = etohl(eedat);
+         ecx_readeeprom1(context, slave, ECT_SII_SER); /* serial */
+      }
+      for (slave = 1; slave <= *(context->slavecount); slave++)
+      {
+         eedat = ecx_readeeprom2(context, slave, EC_TIMEOUTEEP); /* serial */
+         context->slavelist[slave].eep_ser = etohl(eedat);
          ecx_readeeprom1(context, slave, ECT_SII_RXMBXADR); /* write mailbox address + mailboxsize */
+
       }
       for (slave = 1; slave <= *(context->slavecount); slave++)
       {

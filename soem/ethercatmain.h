@@ -119,6 +119,8 @@ typedef struct ec_slave
    uint32           eep_id;
    /** revision from EEprom */
    uint32           eep_rev;
+   /** serial from EEprom */
+   uint32           eep_ser;
    /** Interface type */
    uint16           Itype;
    /** Device type */

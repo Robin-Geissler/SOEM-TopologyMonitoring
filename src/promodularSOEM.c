@@ -38,6 +38,9 @@ ecx_contextt *busMemberScan(char ioMap[]){
     return &ecx_context;
 }
 
+/* to get a png image do:
+ * dot -Tpng graphViz.gv -o graph.png
+ * */
 int visualizeTopology(ecx_contextt *ec_context){
 
     FILE * fp;
@@ -53,10 +56,11 @@ int visualizeTopology(ecx_contextt *ec_context){
         printf( "Vendor ID: %x\n",(int)ec_context->slavelist[i].eep_man);
         printf("Product Code: %d\n",(int)ec_context->slavelist[i].eep_id);
         printf("Revision No: %d\n", (int)ec_context->slavelist[i].eep_rev);
-        printf("Serial No still to be implemented\n");
+        printf("Serial No: %d\n", (int)ec_context->slavelist[i].eep_ser);
         printf("Configured Aderess still to be implemented\n");
 
-        fprintf(fp,"node_%d [label=\"%s\\nID: %d\"];\n",i,ec_context->slavelist[i].name,ec_context->slavelist[i].eep_id);
+        fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\"];\n",i,ec_context->slavelist[i].name,
+                ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser);
         fprintf(fp, "node_%d -> node_%d;\n",i-1,i);
 
     }

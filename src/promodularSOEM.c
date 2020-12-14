@@ -57,11 +57,13 @@ int visualizeTopology(ecx_contextt *ec_context){
         printf("Product Code: %d\n",(int)ec_context->slavelist[i].eep_id);
         printf("Revision No: %d\n", (int)ec_context->slavelist[i].eep_rev);
         printf("Serial No: %d\n", (int)ec_context->slavelist[i].eep_ser);
+        printf("Topology: %d\n",(int)ec_context->slavelist[i].topology);
+        printf("Parent: %d\n", (int)ec_context->slavelist[i].parent);
         printf("Configured Aderess still to be implemented\n");
 
         fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\"];\n",i,ec_context->slavelist[i].name,
                 ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser);
-        fprintf(fp, "node_%d -> node_%d;\n",i-1,i);
+        fprintf(fp, "node_%d -> node_%d;\n",(int)ec_context->slavelist[i].parent,i);
 
     }
     fprintf(fp, "}\n");

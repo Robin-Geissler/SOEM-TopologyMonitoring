@@ -7,6 +7,10 @@
 
 #include <stdio.h>
 
+// TODO Linux Include markieren und Präprozesor befehle setzen
+#include <unistd.h>
+
+
 #include "ethercat.h"
 
 

@@ -12,7 +12,7 @@
 
 
 ecx_contextt *busMemberScan(char ioMap[]);
-int visualizeTopology();
+int visualizeTopology(ecx_contextt *ec_context);
 
 
 

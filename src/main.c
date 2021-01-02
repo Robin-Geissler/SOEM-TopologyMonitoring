@@ -25,10 +25,15 @@ int main(int argc, char *argv[]) {
     }
     printf("Init on %s suceeded.\n", netInterface);
 
-    context = busMemberScan(iOmap);
+    while(TRUE){
+        context = busMemberScan(iOmap);
 
-    /* Visualize the Topology*/
-    visualizeTopology(context);
+        /* Visualize the Topology*/
+        visualizeTopology(context);
+    }
+
+
+
     return 0;
 }
 

@@ -18,6 +18,8 @@ ecx_contextt *busMemberScan(char ioMap[]){
         printf("No slaves found\n");
         /*exit here*/
     }
+    printf("time0\n");
+
     printf("All slaves configured\n");
 
     /* Configure distributed clocks*/

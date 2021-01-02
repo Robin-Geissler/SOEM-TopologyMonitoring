@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Modular Robot</title>
+
+        <!-- Bootstrap CSS -->
+        <!-- macht alles schöner wenn online
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        -->
+    </head>
+
+    <body onLoad="timeRefresh(1000)">
+        <!-- got this code snippet from www.w3docs.com/snippets-->
+        <script>
+            function timeRefresh(time){
+                setTimeout("location.reload(true);", time);
+            }
+        </script>
+
+        <div id="main_header">
+            <h1>Modular Robot</h1>
+        </div>
+        <div>
+            <h2>Robot Topology</h2>
+            <hr />
+            <img src="graph.png" alt="Robot topology"/>
+            <br/>
+            <p>This topology was updated at: Time</p>
+        </div>
+    </body>
+</html>

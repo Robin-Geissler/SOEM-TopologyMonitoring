@@ -18,7 +18,11 @@
 ecx_contextt *busMemberScan(char ioMap[]);
 int visualizeTopology(ecx_contextt *ec_context);
 
-
+char *getName(ecx_contextt *ec_context, int slave);
+int getVendorID(ecx_contextt *ec_context, int slave);
+int getProdCode(ecx_contextt *ec_context, int slave);
+int getRevNum(ecx_contextt *ec_context, int slave);
+int getSerialNo(ecx_contextt *ec_context, int slave);
 
 
 #endif //SOEM_PROMODULARSOEM_H

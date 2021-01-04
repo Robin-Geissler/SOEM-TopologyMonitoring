@@ -89,3 +89,30 @@ int visualizeTopology(ecx_contextt *ec_context){
     return 0;
 }
 
+char* getName(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].name;
+}
+
+int getVendorID(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].eep_man;
+}
+
+int getProdCode(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].eep_id;
+}
+
+int getRevNum(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].eep_rev;
+}
+
+int getSerialNo(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].eep_ser;
+}
+
+
+

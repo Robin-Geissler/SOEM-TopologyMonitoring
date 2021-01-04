@@ -6,9 +6,14 @@
 
 #include "promodularSOEM.h"
 
-/** Arguments for dot program*/
-char* dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png"};
 
+/** Arguments for dot program
+ * Program Name
+ * Option:
+ * Path to the .gv file
+ * Option
+ * Path to the newly created .png file*/
+char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png"};
 
 ecx_contextt *busMemberScan(char ioMap[]){
     printf("Scannig bus topology...\n");
@@ -80,7 +85,8 @@ int visualizeTopology(ecx_contextt *ec_context){
     printf("generate Topology image...\n");
     if(fork() == 0){
         if(execv("/usr/bin/dot", dotArgv) != 0){
-            printf("Error in promodularSOEM.c cant create dotfile\n");
+            printf("Error in promodularSOEM.c cant create dotfile, make sure that dot executable is located in"
+                   " /usr/bin/dot or change the path in execv function\n");
             return -1;
         }
     }

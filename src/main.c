@@ -4,12 +4,17 @@
 #include "promodularSOEM.h"
 
 int main(int argc, char *argv[]) {
-
+    /** Buffer to save the name of the Network Interface*/
     char netInterface[1024];
+    /** Buffer to map all IO from slaves*/
     char iOmap[4096];
+    /** Context to save bus information*/
     ecx_contextt *context;
+    /** Current working counter used to detect topology changes*/
     int wkc = 0;
+    /** Newly detected working counter used to detect topology changes*/
     int wkcDetected = 0;
+    /** Read Buffer 16 Bit*/
     uint16 r16;
 
     printf("Starting PromodularSOEM ... \n");
@@ -20,7 +25,7 @@ int main(int argc, char *argv[]) {
     }
     strncpy(netInterface,argv[1],1024);
 
-
+    /* Init the EC Master*/
     printf("EC init\n");
     if(!ec_init(netInterface)){
         printf("No bus connection, make sure to run as super user\n");

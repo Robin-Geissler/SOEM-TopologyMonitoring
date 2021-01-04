@@ -14,7 +14,6 @@
 #include "ethercat.h"
 
 
-
 ecx_contextt *busMemberScan(char ioMap[]);
 int visualizeTopology(ecx_contextt *ec_context);
 

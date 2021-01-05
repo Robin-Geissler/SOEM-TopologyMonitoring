@@ -12,10 +12,7 @@ int main(int argc, char *argv[]) {
     ecx_contextt *context;
     /** Current working counter used to detect topology changes*/
     int wkc = 0;
-    /** Newly detected working counter used to detect topology changes*/
-    int wkcDetected = 0;
-    /** Read Buffer 16 Bit*/
-    uint16 r16;
+
 
     printf("Starting PromodularSOEM ... \n");
 
@@ -46,8 +43,7 @@ int main(int argc, char *argv[]) {
 
 
         /* If Topology change is detected scan, re-init bus, visualize new Topology*/
-        wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);  /* detect number of slaves */
-        if(wkc != wkcDetected){
+        if(topologyChange(wkc, context)){
             busMemberScan(iOmap, &wkc);
             visualizeTopology(context);
         }

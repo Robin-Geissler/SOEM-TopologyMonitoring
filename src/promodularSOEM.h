@@ -17,6 +17,8 @@
 ecx_contextt *busMemberScan(char ioMap[]);
 int visualizeTopology(ecx_contextt *ec_context);
 
+boolean topologyChange(int wkc, ecx_contextt *context);
+
 char *getName(ecx_contextt *ec_context, int slave);
 int getVendorID(ecx_contextt *ec_context, int slave);
 int getProdCode(ecx_contextt *ec_context, int slave);

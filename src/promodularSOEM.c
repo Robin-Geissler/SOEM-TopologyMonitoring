@@ -95,6 +95,24 @@ int visualizeTopology(ecx_contextt *ec_context){
     return 0;
 }
 
+/**
+ *
+ * @param wkc The currently saved working counter
+ * @param context The EtherCAT context
+ * @return True if a change was detected, false if there was no change
+ */
+boolean topologyChange(int wkc, ecx_contextt *context){
+    /* Read Buffer 16 Bit*/
+    uint16 r16;
+    int wkcDetected;
+
+    /* detect number of slaves */
+    wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
+
+    /* if the wkc changed, there was a topology change*/
+    return wkc != wkcDetected;
+}
+
 char* getName(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].name;

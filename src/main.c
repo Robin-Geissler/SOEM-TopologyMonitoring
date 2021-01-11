@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         printf("No bus connection, make sure to run as super user\n");
         return -1;
     }
-    printf("Init on %s suceeded.\n", netInterface);
+    printf("Init on %s succeeded.\n", netInterface);
 
     /* Scan and init the Bus*/
     context = busMemberScan(iOmap, &wkc);

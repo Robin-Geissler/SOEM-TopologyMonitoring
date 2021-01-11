@@ -72,9 +72,10 @@ int visualizeTopology(ecx_contextt *ec_context){
 //        printf("Parent: %d\n", (int)ec_context->slavelist[i].parent);
 //        printf("Configured Aderess still to be implemented\n");
 
-        fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\"];\n",i,ec_context->slavelist[i].name,
-                ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser);
-        fprintf(fp, "node_%d -> node_%d;\n",(int)ec_context->slavelist[i].parent,i);
+        /* propagation delay is measured from first DC Slave*/
+        fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\\nPropagation Delay: %d ns\"];\n",i,ec_context->slavelist[i].name,
+                ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser, ec_context->slavelist[i].pdelay);
+        fprintf(fp, "node_%d -> node_%d [label =\"%d ns\"];\n",(int)ec_context->slavelist[i].parent,i,ec_context->slavelist[i].pdelay - ec_context->slavelist[i -1].pdelay);
 
     }
     fprintf(fp, "}\n");
@@ -138,5 +139,14 @@ int getSerialNo(ecx_contextt *ec_context, int slave){
     return ec_context->slavelist[slave].eep_ser;
 }
 
-
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return delay from "first slave with dc" to "measured slave" in ns
+ */
+int getPropagationDelay(ecx_contextt *ec_context, int slave){
+    if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
+    return ec_context->slavelist[slave].pdelay;
+}
 

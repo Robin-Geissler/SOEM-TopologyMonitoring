@@ -45,7 +45,10 @@ int main(int argc, char *argv[]) {
 
 
         /* If Topology change is detected scan, re-init bus, visualize new Topology*/
-        if(topologyChange(wkc, context)){
+        if(detectTopologyChange(wkc, context)){
+            /* some slaves like EK1100 need some time to config there slaves, if you read them out to early the EEprom
+             * will not be working*/
+            usleep(SLAVE_CONFIG_TIME_us);
             busMemberScan(iOmap, &wkc);
             visualizeTopology(context);
         }

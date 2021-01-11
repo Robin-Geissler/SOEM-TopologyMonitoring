@@ -13,11 +13,17 @@
 
 #include "ethercat.h"
 
+/** Time to wait before each busMemberScan in micro seconds
+ * @value XMC_ESC = 0
+ * @value EK1100 = 0
+ * @value EK1100 + EL1808 = 250000
+ * */
+#define SLAVE_CONFIG_TIME_us 250000
 
 ecx_contextt *busMemberScan(char ioMap[]);
 int visualizeTopology(ecx_contextt *ec_context);
 
-boolean topologyChange(int wkc, ecx_contextt *context);
+boolean detectTopologyChange(int wkc, ecx_contextt *context);
 
 char *getName(ecx_contextt *ec_context, int slave);
 int getVendorID(ecx_contextt *ec_context, int slave);

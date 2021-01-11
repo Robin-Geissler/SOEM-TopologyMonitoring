@@ -102,7 +102,7 @@ int visualizeTopology(ecx_contextt *ec_context){
  * @param context The EtherCAT context
  * @return True if a change was detected, false if there was no change
  */
-boolean topologyChange(int wkc, ecx_contextt *context){
+boolean detectTopologyChange(int wkc, ecx_contextt *context){
     /* Read Buffer 16 Bit*/
     uint16 r16;
     int wkcDetected;

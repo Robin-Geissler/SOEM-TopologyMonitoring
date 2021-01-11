@@ -32,6 +32,8 @@ int main(int argc, char *argv[]) {
 
     /* Scan and init the Bus*/
     context = busMemberScan(iOmap, &wkc);
+    /* generate first Visualization*/
+    visualizeTopology(context);
 
     while(TRUE){
 

@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "promodularSOEM.h"
 
@@ -88,8 +89,9 @@ int visualizeTopology(ecx_contextt *ec_context){
         if(execv("/usr/bin/dot", dotArgv) != 0){
             printf("Error in promodularSOEM.c cant create dotfile, make sure that dot executable is located in"
                    " /usr/bin/dot or change the path in execv function\n");
-            return -1;
+            exit(-1);
         }
+        exit(0);
     }
 
 

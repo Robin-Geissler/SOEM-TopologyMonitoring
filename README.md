@@ -23,11 +23,16 @@ Windows (Visual Studio)
 
 Linux & macOS
 --------------
-
+   Build the Master:
    * `mkdir build`
    * `cd build`
    * `cmake ..`
    * `make`
+
+   Install Dot for generating the Graph file:
+
+   * `sudo apt-get install dot`
+
 
 ERIKA Enterprise RTOS
 ---------------------

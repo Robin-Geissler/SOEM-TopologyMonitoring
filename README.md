@@ -29,9 +29,9 @@ Linux & macOS
    * `cmake ..`
    * `make`
 
-   Install Dot for generating the Graph file:
+   Install GraphViz for generating the Graph file:
 
-   * `sudo apt-get install dot`
+   * `sudo apt-get install graphviz`
 
 
 ERIKA Enterprise RTOS

@@ -48,6 +48,8 @@ int main(int argc, char *argv[]) {
         if(detectTopologyChange(wkc, context)){
             /* some slaves like EK1100 need some time to config there slaves, if you read them out to early the EEprom
              * will not be working*/
+            /*Über Time stamp lösen -> kein blocking wait mit usleep*/
+            /* Bus aus Operational mode nehemen*/
             usleep(SLAVE_CONFIG_TIME_us);
             busMemberScan(iOmap, &wkc);
             visualizeTopology(context);

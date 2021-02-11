@@ -20,7 +20,7 @@
  * */
 #define SLAVE_CONFIG_TIME_us 250000
 
-ecx_contextt *busMemberScan(char ioMap[]);
+ecx_contextt *busMemberScan(char ioMap[], int *wkc);
 int visualizeTopology(ecx_contextt *ec_context);
 
 boolean detectTopologyChange(int wkc, ecx_contextt *context);

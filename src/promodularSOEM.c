@@ -15,15 +15,15 @@
  * Path to the newly created .png file*/
 char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png"};
 
-ecx_contextt *busMemberScan(char ioMap[]){
+ecx_contextt *busMemberScan(char ioMap[], int* wkc){
     printf("Scannig bus topology...\n");
 
     /* configure all slaves */
-    if(ec_config(FALSE,ioMap) < 1){
+    *wkc = ec_config(FALSE,ioMap);
+    if(*wkc < 1){
         printf("No slaves found\n");
         /*exit here*/
     }
-    printf("time0\n");
 
     printf("All slaves configured\n");
 

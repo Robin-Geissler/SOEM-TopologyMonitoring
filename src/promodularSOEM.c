@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 #include "promodularSOEM.h"
 
@@ -14,7 +16,7 @@
  * Path to the .gv file
  * Option
  * Path to the newly created .png file*/
-char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png"};
+char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png", (char*)0};
 
 ecx_contextt *busMemberScan(char ioMap[], int* wkc){
     printf("Scannig bus topology...\n");
@@ -86,9 +88,10 @@ int visualizeTopology(ecx_contextt *ec_context){
     // execute the dot program to generate a graphViz image in a new process
     printf("generate Topology image...\n");
     if(fork() == 0){
-        if(execv("/usr/bin/dot", dotArgv) != 0){
+	int error = execv("/usr/bin/dot", dotArgv);
+        if(error != 0){
             printf("Error in promodularSOEM.c cant create dotfile, make sure that dot executable is located in"
-                   " /usr/bin/dot or change the path in execv function\n");
+                   " /usr/bin/dot or change the path in execv function Error Code was: %d, that means %s\n", error, strerror(error));
             exit(-1);
         }
         exit(0);
@@ -111,6 +114,9 @@ boolean detectTopologyChange(int wkc, ecx_contextt *context){
 
     /* detect number of slaves */
     wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
+
+    printf("Current WKC: %d\n", wkc);
+    printf("Detected WKC: %d\n\n", wkcDetected);
 
     /* if the wkc changed, there was a topology change*/
     return wkc != wkcDetected;

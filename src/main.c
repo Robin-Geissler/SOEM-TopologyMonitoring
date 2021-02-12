@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "promodularSOEM.h"
 
@@ -13,6 +14,9 @@ int main(int argc, char *argv[]) {
     /** Current working counter used to detect topology changes*/
     int wkc = 0;
 
+    /** Clocks for time measurments*/
+    struct timespec t1;
+    struct timespec t2;
 
     printf("Starting PromodularSOEM ... \n");
 
@@ -43,6 +47,8 @@ int main(int argc, char *argv[]) {
 //        printf("WKC: %d\n", wkc);
 //        printf("Write was: %d\n", r16);
 
+        // Time Measurement
+        clock_gettime(CLOCK_MONOTONIC, &t1);
 
         /* If Topology change is detected scan, re-init bus, visualize new Topology*/
         if(detectTopologyChange(wkc, context)){
@@ -53,6 +59,12 @@ int main(int argc, char *argv[]) {
             usleep(SLAVE_CONFIG_TIME_us);
             busMemberScan(iOmap, &wkc);
             visualizeTopology(context);
+            clock_gettime(CLOCK_MONOTONIC, &t2);
+
+            int secdif = t1.tv_sec - t2.tv_sec;
+            int nanodif = t1.tv_nsec - t2.tv_nsec;
+
+            printf("Seconds: %d\nNanos: %d\n", secdif, nanodif);
         }
 
     }

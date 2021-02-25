@@ -18,7 +18,7 @@
  * @value EK1100 = 0
  * @value EK1100 + EL1808 = 250000
  * */
-#define SLAVE_CONFIG_TIME_us 250000
+#define SLAVE_CONFIG_TIME_us 0
 
 ecx_contextt *busMemberScan(char ioMap[], int *wkc);
 int visualizeTopology(ecx_contextt *ec_context);

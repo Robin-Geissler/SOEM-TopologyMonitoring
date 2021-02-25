@@ -28,7 +28,7 @@ ecx_contextt *busMemberScan(char ioMap[], int* wkc){
         /*exit here*/
     }
 
-    printf("All slaves configured\n");
+//    printf("All slaves configured\n");
 
     /* Configure distributed clocks*/
     ec_configdc();
@@ -48,7 +48,7 @@ ecx_contextt *busMemberScan(char ioMap[], int* wkc){
     }
 
     ec_readstate();
-    printf("Finished reading out network configuration\n");
+//    printf("Finished reading out network configuration\n");
     return &ecx_context;
 }
 
@@ -56,39 +56,42 @@ ecx_contextt *busMemberScan(char ioMap[], int* wkc){
  * dot -Tpng graphViz.gv -o graph.png
  * */
 int visualizeTopology(ecx_contextt *ec_context){
-
-    FILE * fp;
-
-    fp = fopen("../../vizFiles/graphViz.gv","w");
-
-    fprintf(fp, "digraph G {\n\n");
-
-    fprintf(fp, "node_0 [label=\"Master\"]\n");
-
-    for(int i = 1; i <= *(ec_context->slavecount); i++){
-//        printf("Slave %d\n",i);
-//        printf( "Vendor ID: %x\n",(int)ec_context->slavelist[i].eep_man);
-//        printf("Product Code: %d\n",(int)ec_context->slavelist[i].eep_id);
-//        printf("Revision No: %d\n", (int)ec_context->slavelist[i].eep_rev);
-//        printf("Serial No: %d\n", (int)ec_context->slavelist[i].eep_ser);
-//        printf("Topology: %d\n",(int)ec_context->slavelist[i].topology);
-//        printf("Parent: %d\n", (int)ec_context->slavelist[i].parent);
-//        printf("Configured Aderess still to be implemented\n");
-
-        /* propagation delay is measured from first DC Slave*/
-        fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\\nPropagation Delay: %d ns\"];\n",i,ec_context->slavelist[i].name,
-                ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser, ec_context->slavelist[i].pdelay);
-        fprintf(fp, "node_%d -> node_%d [label =\"%d ns\"];\n",(int)ec_context->slavelist[i].parent,i,ec_context->slavelist[i].pdelay - ec_context->slavelist[i -1].pdelay);
-
-    }
-    fprintf(fp, "}\n");
-
-    fclose(fp);
-
-    // execute the dot program to generate a graphViz image in a new process
-    printf("generate Topology image...\n");
+    // Visualization happens in new Thread to not delay main process
     if(fork() == 0){
-	int error = execv("/usr/bin/dot", dotArgv);
+
+        FILE * fp;
+
+        fp = fopen("../../vizFiles/graphViz.gv","w");
+
+        fprintf(fp, "digraph G {\n\n");
+
+        fprintf(fp, "node_0 [label=\"Master\"]\n");
+
+        for(int i = 1; i <= *(ec_context->slavecount); i++){
+            if(i == 3 || i == 1|| TRUE) {
+//                printf("Slave %d\n", i);
+//                printf("Name: %s\n", ec_context->slavelist[i].name);
+                //           printf("Vendor ID: %x\n", (int) ec_context->slavelist[i].eep_man);
+//            printf("Product Code: %d\n", (int) ec_context->slavelist[i].eep_id);
+//            printf("Revision No: %d\n", (int) ec_context->slavelist[i].eep_rev);
+//            printf("Serial No: %d\n", (int) ec_context->slavelist[i].eep_ser);
+//            printf("Topology: %d\n", (int) ec_context->slavelist[i].topology);
+//            printf("Parent: %d\n", (int) ec_context->slavelist[i].parent);
+//            printf("Configured Aderess still to be implemented\n");
+            }
+            /* propagation delay is measured from first DC Slave*/
+            fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\\nPropagation Delay: %d ns\"];\n",i,ec_context->slavelist[i].name,
+                    ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser, ec_context->slavelist[i].pdelay);
+            fprintf(fp, "node_%d -> node_%d [label =\"%d ns\"];\n",(int)ec_context->slavelist[i].parent,i,ec_context->slavelist[i].pdelay - ec_context->slavelist[i -1].pdelay);
+
+        }
+        fprintf(fp, "}\n");
+
+        fclose(fp);
+
+        // execute the dot program to generate a graphViz image in a new process
+//        printf("generate Topology image...\n");
+	    int error = execv("/usr/bin/dot", dotArgv);
         if(error != 0){
             printf("Error in promodularSOEM.c cant create dotfile, make sure that dot executable is located in"
                    " /usr/bin/dot or change the path in execv function Error Code was: %d, that means %s\n", error, strerror(error));

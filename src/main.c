@@ -17,6 +17,12 @@ int main(int argc, char *argv[]) {
     /** Clocks for time measurments*/
     struct timespec t1;
     struct timespec t2;
+    long secdif;
+    long nanodif;
+    long millidif;
+    long nanodif2;
+    long microdif;
+    long nanodif3;
 
     printf("Starting PromodularSOEM ... \n");
 
@@ -61,10 +67,22 @@ int main(int argc, char *argv[]) {
             visualizeTopology(context);
             clock_gettime(CLOCK_MONOTONIC, &t2);
 
-            int secdif = t1.tv_sec - t2.tv_sec;
-            int nanodif = t1.tv_nsec - t2.tv_nsec;
+            if(t2.tv_nsec - t1.tv_nsec < 0){
+                secdif = t2.tv_sec - t1.tv_sec - 1;
+                nanodif = t2.tv_nsec - t1.tv_nsec + 1000000000;
+            }else{
+                secdif = t2.tv_sec - t1.tv_sec;
+                nanodif = t2.tv_nsec - t1.tv_nsec;
+            }
 
-            printf("Seconds: %d\nNanos: %d\n", secdif, nanodif);
+            // Split nanos in millis, micros and nanos
+            millidif = nanodif / 1000000;
+            nanodif2 = nanodif % 1000000;
+            microdif = nanodif2 / 1000;
+            nanodif3 = nanodif2 % 1000;
+
+            printf("T1: Sec: %ld   Nano: %ld\nT2: Sec: %ld   Nano: %ld\n\n", t1.tv_sec, t1.tv_nsec, t2.tv_sec, t2.tv_nsec);
+            printf("Seconds: %ld\nNanos: %ld\n \n Millis: %ld\nNikros %ld\nNanonew %ld\n", secdif, nanodif, millidif, microdif, nanodif3);
         }
 
     }

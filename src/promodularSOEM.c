@@ -115,8 +115,11 @@ boolean detectTopologyChange(int wkc, ecx_contextt *context){
     /* detect number of slaves */
     wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
 
-    printf("Current WKC: %d\n", wkc);
-    printf("Detected WKC: %d\n\n", wkcDetected);
+ //   printf("Current WKC: %d\n", wkc);
+ //   printf("Detected WKC: %d\n\n", wkcDetected);
+
+//    printf("WKC current %d\n", wkc);
+//    printf("WKC detected %d\n\n", wkcDetected);
 
     /* if the wkc changed, there was a topology change*/
     return wkc != wkcDetected;

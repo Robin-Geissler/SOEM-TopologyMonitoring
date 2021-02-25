@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 //    uint16 r16;
 //    FILE * file;
 //    file = fopen("../../measurements/cycleTimes.csv","w");
-//    fprintf(file, "Cycle Time\n");
+//    fprintf(file, "SlaveConfigNumber,Cycle Time\n");
 //
 //    for(int i = 0; i < 10000; i++) {
 //        clock_gettime(CLOCK_MONOTONIC, &t1);
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 //            secdif = t2.tv_sec - t1.tv_sec;
 //            nanodif = t2.tv_nsec - t1.tv_nsec;
 //        }
-//        fprintf(file, "%ld\n", nanodif);
+//        fprintf(file, "%d,%ld\n",wkc ,nanodif);
 //    }
 //    fclose(file);
 //    printf("finished with measurements\n");

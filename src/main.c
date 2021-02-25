@@ -60,10 +60,10 @@ int main(int argc, char *argv[]) {
 //        ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
 //        clock_gettime(CLOCK_MONOTONIC, &t2);
 //        if (t2.tv_nsec - t1.tv_nsec < 0) {
-//            secdif = t2.tv_sec - t1.tv_sec - 1;
+////            secdif = t2.tv_sec - t1.tv_sec - 1;
 //            nanodif = t2.tv_nsec - t1.tv_nsec + 1000000000;
 //        } else {
-//            secdif = t2.tv_sec - t1.tv_sec;
+////            secdif = t2.tv_sec - t1.tv_sec;
 //            nanodif = t2.tv_nsec - t1.tv_nsec;
 //        }
 //        fprintf(file, "%d,%ld\n",wkc ,nanodif);
@@ -119,12 +119,12 @@ int main(int argc, char *argv[]) {
             fprintf(file,"%d,%ld\n",wkc,nanodif);
             i++;
             printf("%d\n", i);
-            /**********************************************************************************************************/
+
         }
     }
 
     fclose(file);
-
+/**********************************************************************************************************************/
     return 0;
 }
 

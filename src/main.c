@@ -72,7 +72,12 @@ int main(int argc, char *argv[]) {
 //    printf("finished with measurements\n");
 /**********************************************************************************************************************/
 
-    while(TRUE){
+
+    FILE * file;
+    file = fopen("../../measurements/TopologyChangeResponseTimes.csv","w");
+    fprintf(file, "SlaveConfigNumber,Response Time\n");
+    int i = 0;
+    while(i < 5){
 
 
 
@@ -110,16 +115,15 @@ int main(int argc, char *argv[]) {
             microdif = nanodif2 / 1000;
             nanodif3 = nanodif2 % 1000;
 
-//            printf("T1: Sec: %ld   Nano: %ld\nT2: Sec: %ld   Nano: %ld\n\n", t1.tv_sec, t1.tv_nsec, t2.tv_sec, t2.tv_nsec);
             printf("Seconds: %ld\nNanos: %ld\nMillis: %ld\nNikros %ld\nNanos %ld\n\n", secdif, nanodif, millidif, microdif, nanodif3);
-
-
+            fprintf(file,"%d,%ld\n",wkc,nanodif);
+            i++;
+            printf("%d\n", i);
             /**********************************************************************************************************/
         }
-
     }
 
-
+    fclose(file);
 
     return 0;
 }

@@ -1,12 +1,6 @@
 digraph G {
 
 node_0 [label="Master"]
-node_1 [label="XMC_ESC\nID: 1\nSerialNr: 3\nPropagation Delay: 0 ns"];
+node_1 [label="EK1100\nID: 72100946\nSerialNr: 0\nPropagation Delay: 0 ns"];
 node_0 -> node_1 [label ="0 ns"];
-node_2 [label="EK1100\nID: 72100946\nSerialNr: 0\nPropagation Delay: 579 ns"];
-node_1 -> node_2 [label ="579 ns"];
-node_3 [label="EL1808\nID: 118501458\nSerialNr: 0\nPropagation Delay: 734 ns"];
-node_2 -> node_3 [label ="155 ns"];
-node_4 [label="XMC_ESC\nID: 1\nSerialNr: 3\nPropagation Delay: 1474 ns"];
-node_2 -> node_4 [label ="740 ns"];
 }

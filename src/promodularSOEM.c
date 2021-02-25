@@ -19,7 +19,7 @@
 char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png", (char*)0};
 
 ecx_contextt *busMemberScan(char ioMap[], int* wkc){
-    printf("Scannig bus topology...\n");
+//    printf("Scannig bus topology...\n");
 
     /* configure all slaves */
     *wkc = ec_config(FALSE,ioMap);
@@ -68,7 +68,7 @@ int visualizeTopology(ecx_contextt *ec_context){
         fprintf(fp, "node_0 [label=\"Master\"]\n");
 
         for(int i = 1; i <= *(ec_context->slavecount); i++){
-            if(i == 3 || i == 1|| TRUE) {
+//            if(i == 3 || i == 1|| TRUE) {
 //                printf("Slave %d\n", i);
 //                printf("Name: %s\n", ec_context->slavelist[i].name);
                 //           printf("Vendor ID: %x\n", (int) ec_context->slavelist[i].eep_man);
@@ -78,7 +78,7 @@ int visualizeTopology(ecx_contextt *ec_context){
 //            printf("Topology: %d\n", (int) ec_context->slavelist[i].topology);
 //            printf("Parent: %d\n", (int) ec_context->slavelist[i].parent);
 //            printf("Configured Aderess still to be implemented\n");
-            }
+//            }
             /* propagation delay is measured from first DC Slave*/
             fprintf(fp,"node_%d [label=\"%s\\nID: %d\\nSerialNr: %d\\nPropagation Delay: %d ns\"];\n",i,ec_context->slavelist[i].name,
                     ec_context->slavelist[i].eep_id, ec_context->slavelist[i].eep_ser, ec_context->slavelist[i].pdelay);
@@ -111,7 +111,7 @@ int visualizeTopology(ecx_contextt *ec_context){
  * @return True if a change was detected, false if there was no change
  */
 boolean detectTopologyChange(int wkc, ecx_contextt *context){
-    /* Read Buffer 16 Bit*/
+    /** Read Buffer 16 Bit*/
     uint16 r16;
     int wkcDetected;
 

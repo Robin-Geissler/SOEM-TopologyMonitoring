@@ -49,11 +49,10 @@ int main(int argc, char *argv[]) {
     visualizeTopology(context);
 
     /********************Measurement 1: Cycle Time*********************************************************************/
-//    /** Read Buffer 16 Bit for cycle time measurment*/
+    /** Read Buffer 16 Bit for cycle time measurment*/
 //    uint16 r16;
-//    FILE * file;
-//    file = fopen("../../measurements/cycleTimes.csv","w");
-//    fprintf(file, "SlaveConfigNumber,Cycle Time\n");
+//    long times[10000];
+//    int wkcs[10000];
 //
 //    for(int i = 0; i < 10000; i++) {
 //        clock_gettime(CLOCK_MONOTONIC, &t1);
@@ -66,18 +65,26 @@ int main(int argc, char *argv[]) {
 ////            secdif = t2.tv_sec - t1.tv_sec;
 //            nanodif = t2.tv_nsec - t1.tv_nsec;
 //        }
-//        fprintf(file, "%d,%ld\n",wkc ,nanodif);
+//        times[i] = nanodif;
+//        wkcs[i] = wkc;
+//    }
+//    FILE * file;
+//    file = fopen("../../measurements/cycleTimes.csv","w");
+//    fprintf(file, "SlaveConfigNumber,Cycle Time\n");
+//    for(int i = 0; i < 10000; i++) {
+//        fprintf(file, "%d,%ld\n", wkcs[i], times[i]);
 //    }
 //    fclose(file);
 //    printf("finished with measurements\n");
 /**********************************************************************************************************************/
 
 
-    FILE * file;
-    file = fopen("../../measurements/TopologyChangeResponseTimes.csv","w");
-    fprintf(file, "SlaveConfigNumber,Response Time\n");
+
+    int measures = 10;
+    long times[measures];
+    int wkcs[measures];
     int i = 0;
-    while(i < 5){
+    while(i < measures){
 
 
 
@@ -116,11 +123,18 @@ int main(int argc, char *argv[]) {
             nanodif3 = nanodif2 % 1000;
 
             printf("Seconds: %ld\nNanos: %ld\nMillis: %ld\nNikros %ld\nNanos %ld\n\n", secdif, nanodif, millidif, microdif, nanodif3);
-            fprintf(file,"%d,%ld\n",wkc,nanodif);
+            times[i] = nanodif;
+            wkcs[i] = wkc;
             i++;
             printf("%d\n", i);
 
         }
+    }
+    FILE * file;
+    file = fopen("../../measurements/TopologyChangeResponseTimes.csv","w");
+    fprintf(file, "SlaveConfigNumber,Response Time\n");
+    for(int i = 0; i < measures; i++){
+        fprintf(file,"%d,%ld\n",wkcs[i],times[i]);
     }
 
     fclose(file);

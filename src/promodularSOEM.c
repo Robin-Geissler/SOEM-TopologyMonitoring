@@ -128,6 +128,10 @@ boolean detectTopologyChange(int wkc, ecx_contextt *context){
     return wkc != wkcDetected;
 }
 
+int getSlaveNumber(){
+    return *(ec_context->slavecount);
+}
+
 char* getName(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].name;

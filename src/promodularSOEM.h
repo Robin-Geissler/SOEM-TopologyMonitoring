@@ -25,6 +25,7 @@ int visualizeTopology(ecx_contextt *ec_context);
 
 boolean detectTopologyChange(int wkc, ecx_contextt *context);
 
+int getSlaveNumber();
 char *getName(ecx_contextt *ec_context, int slave);
 int getVendorID(ecx_contextt *ec_context, int slave);
 int getProdCode(ecx_contextt *ec_context, int slave);

@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     /* Scan and init the Bus*/
     context = busMemberScan(iOmap, &wkc);
     /* generate first Visualization*/
-    visualizeTopology(context);
+    visualizeTopology(context, 0, 1000000);
 
     /********************Measurement 1: Cycle Time*********************************************************************/
     /** Read Buffer 16 Bit for cycle time measurment*/
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
             /* Bus aus Operational mode nehemen*/
             usleep(SLAVE_CONFIG_TIME_us);
             busMemberScan(iOmap, &wkc);
-            visualizeTopology(context);
+            visualizeTopology(context, 0, 1000000);
            /******************************Measure Topology response Time***********************************************/
             clock_gettime(CLOCK_MONOTONIC, &t2);
 

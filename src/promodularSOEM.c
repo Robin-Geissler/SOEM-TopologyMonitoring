@@ -18,6 +18,31 @@
  * Path to the newly created .png file*/
 char *dotArgv[] = {"dot", "-Tpng", "../../vizFiles/graphViz.gv", "-o", "../../vizFiles/graph.png", (char*)0};
 
+
+/**
+ *
+ * @param wkc The currently saved working counter
+ * @param context The EtherCAT context
+ * @return True if a change was detected, false if there was no change
+ */
+boolean detectTopologyChange(int wkc, ecx_contextt *context){
+    /** Read Buffer 16 Bit*/
+    uint16 r16;
+    int wkcDetected;
+
+    /* detect number of slaves */
+    wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
+
+    //   printf("Current WKC: %d\n", wkc);
+    //   printf("Detected WKC: %d\n\n", wkcDetected);
+
+//    printf("WKC current %d\n", wkc);
+//    printf("WKC detected %d\n\n", wkcDetected);
+
+    /* if the wkc changed, there was a topology change*/
+    return wkc != wkcDetected;
+}
+
 ecx_contextt *busMemberScan(char ioMap[], int* wkc){
 //    printf("Scannig bus topology...\n");
 
@@ -146,52 +171,54 @@ int visualizeTopology(ecx_contextt *ec_context, int idMin, int idMax){
 
 /**
  *
- * @param wkc The currently saved working counter
- * @param context The EtherCAT context
- * @return True if a change was detected, false if there was no change
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return name of the slave
  */
-boolean detectTopologyChange(int wkc, ecx_contextt *context){
-    /** Read Buffer 16 Bit*/
-    uint16 r16;
-    int wkcDetected;
-
-    /* detect number of slaves */
-    wkcDetected = ecx_BRD(context->port, 0x0000, ECT_REG_TYPE, sizeof(r16), &r16, EC_TIMEOUTSAFE);
-
- //   printf("Current WKC: %d\n", wkc);
- //   printf("Detected WKC: %d\n\n", wkcDetected);
-
-//    printf("WKC current %d\n", wkc);
-//    printf("WKC detected %d\n\n", wkcDetected);
-
-    /* if the wkc changed, there was a topology change*/
-    return wkc != wkcDetected;
-}
-
-int getSlaveNumber(ecx_contextt *ec_context){
-    return *(ec_context->slavecount);
-}
-
 char* getName(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].name;
 }
 
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return vendor id  of the slave
+ */
 int getVendorID(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].eep_man;
 }
 
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return product code  of the slave
+ */
 int getProdCode(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].eep_id;
 }
 
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return revision number of the slave
+ */
 int getRevNum(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].eep_rev;
 }
 
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @param slave measured slave
+ * @return serial number of the slave
+ */
 int getSerialNo(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].eep_ser;
@@ -206,5 +233,14 @@ int getSerialNo(ecx_contextt *ec_context, int slave){
 int getPropagationDelay(ecx_contextt *ec_context, int slave){
     if(*(ec_context->slavecount) < slave - 1) printf("slave dose not exist");
     return ec_context->slavelist[slave].pdelay;
+}
+
+/**
+ *
+ * @param ec_context EtherCAT context
+ * @return number of slaves saved in ec_context in the network
+ */
+int getSlaveNumber(ecx_contextt *ec_context){
+    return *(ec_context->slavecount);
 }
 

@@ -20,19 +20,17 @@
  * */
 #define SLAVE_CONFIG_TIME_us 0
 
+boolean detectTopologyChange(int wkc, ecx_contextt *context);
 ecx_contextt *busMemberScan(char ioMap[], int *wkc);
-
 int updateTopology(ecx_contextt *ec_context, int idMin, int idMax);
 int visualizeTopology(ecx_contextt *ec_context, int idMin, int idMax);
 
-boolean detectTopologyChange(int wkc, ecx_contextt *context);
-
-int getSlaveNumber(ecx_contextt *ec_context);
 char *getName(ecx_contextt *ec_context, int slave);
 int getVendorID(ecx_contextt *ec_context, int slave);
 int getProdCode(ecx_contextt *ec_context, int slave);
 int getRevNum(ecx_contextt *ec_context, int slave);
 int getSerialNo(ecx_contextt *ec_context, int slave);
 
+int getSlaveNumber(ecx_contextt *ec_context);
 
 #endif //SOEM_PROMODULARSOEM_H

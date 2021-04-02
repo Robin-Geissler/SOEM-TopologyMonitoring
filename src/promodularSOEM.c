@@ -128,7 +128,7 @@ boolean detectTopologyChange(int wkc, ecx_contextt *context){
     return wkc != wkcDetected;
 }
 
-int getSlaveNumber(){
+int getSlaveNumber(ecx_contextt *ec_context){
     return *(ec_context->slavecount);
 }
 

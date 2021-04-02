@@ -133,8 +133,8 @@ int main(int argc, char *argv[]) {
     FILE * file;
     file = fopen("../../measurements/TopologyChangeResponseTimes.csv","w");
     fprintf(file, "SlaveConfigNumber,Response Time\n");
-    for(int i = 0; i < measures; i++){
-        fprintf(file,"%d,%ld\n",wkcs[i],times[i]);
+    for(int j = 0; j < measures; j++){
+        fprintf(file,"%d,%ld\n",wkcs[j],times[j]);
     }
 
     fclose(file);

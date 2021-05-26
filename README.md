@@ -37,8 +37,9 @@ Run Master
 
 Documentation
 -------------
-
-Get the original version of SOEM: https://openethercatsociety.github.io/doc/soem/
-
 The src/main.c provides an example that was used to do a performance evaluation of the library.
+
+Documentation for the original version of SOEM: https://openethercatsociety.github.io
+
+
 

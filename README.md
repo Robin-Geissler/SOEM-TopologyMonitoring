@@ -1,6 +1,6 @@
-# Simple Open EtherCAT Master Library
-[![Build Status](https://travis-ci.org/OpenEtherCATsociety/SOEM.svg?branch=master)](https://travis-ci.org/OpenEtherCATsociety/SOEM)
-[![Build status](https://ci.appveyor.com/api/projects/status/bqgirjsxog9k1odf?svg=true)](https://ci.appveyor.com/project/hefloryd/soem-5kq8b)
+# Master Library for Topology Monitoring with EterhCAT
+
+This is a Master Library based on SOEM. It provides functions to build an EtherCAT Master which can perform Topology Monitoring. Also functions for Topology Visualization are provided.
 
 BUILDING
 ========
@@ -12,14 +12,6 @@ Prerequisites for all platforms
  * CMake 2.8.0 or later
 
 
-Windows (Visual Studio)
------------------------
-
- * Start a Visual Studio command prompt then:
-   * `mkdir build`
-   * `cd build`
-   * `cmake .. -G "NMake Makefiles"`
-   * `nmake`
 
 Linux & macOS
 --------------
@@ -33,28 +25,20 @@ Linux & macOS
 
    * `sudo apt-get install graphviz`
 
-
-ERIKA Enterprise RTOS
----------------------
-
- * Refer to http://www.erika-enterprise.com/wiki/index.php?title=EtherCAT_Master
-
+   Make sure that the "dot" program can be found under /usr/bin/dot (that should be the case normally). If the program is located somewhere else you can change the value of the execv() call in visualizeTopology() acordingly.
 
 Run Master
 ==========
 
    * `cd build/src`
-   * `sudo ./promodularSOEM eth0`
+   * `sudo ./promodularSOEM networkInterface`
+
+   For *networkInterface* use the name of your network interface (mostly eth0). You can use the `ifconfig` or `ip link show` command to read out the correct interface name.
 
 Documentation
 -------------
 
-See https://openethercatsociety.github.io/doc/soem/
+Get the original version of SOEM: https://openethercatsociety.github.io/doc/soem/
 
+The src/main.c provides an example that was used to do a performance evaluation of the library.
 
-Want to contribute to SOEM or SOES?
------------------------------------
-
-If you want to contribute to SOEM or SOES you will need to sign a Contributor
-License Agreement and send it to us either by e-mail or by physical mail. More
-information is available in the [PDF](http://openethercatsociety.github.io/cla/cla_soem_soes.pdf).
